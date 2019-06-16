@@ -1,0 +1,171 @@
+
+<div class="row">
+    <div class="col-md-12">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <h2>ACB Data Analysis</h2>
+        <img class="d-block w-100" src="/img/graph/ACB.png">
+    </div>
+    <div class="carousel-item">
+       <h2>MBB Data Analysis</h2>
+        <img class="d-block w-100" src="/img/graph/MBB.png"> </div>
+    <div class="carousel-item">
+       <h2>VPB Data Analysis</h2>
+        <img class="d-block w-100" src="/img/graph/VPB.png"></div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+    <div class="col-md-12">
+    <br><br><br>
+       <h2 class="card-title">Top 10 Banking Vietnam 2018</h2>
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>More</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($stocks as $stock): ?>
+                                <tr>
+                                   <th scope="row"><?php echo $this->escapeHtml($stock->getStockId()); ?></th>
+                                    <td><?=($stock->getName())?></td>
+                                    <td>
+                                        <?php 
+                                            $trend = $stock->getTrend();
+                                            if($trend == 1){
+                                                echo '<span style="color:blue">Stable</span>';
+                                            }
+                                            elseif($trend == 2){
+                                                echo '<span style="color:green">Good</span>';
+                                            }else{
+                                                echo '<span style="color:red">Bed</span>';
+                                            }
+                                        ?>
+                                            
+                                        </td>
+                                    <td>
+                                         <a href="/stock?sid=<?=$stock->getStockId()?>" class="btn btn-info" >Infomation</a>
+                                    <button type="button" class="btn btn-danger" onclick="StopAll()">Prediction</button>
+                                    
+                                    </td>
+
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+</div>
+<script>
+    /**
+     * Delay for a number of milliseconds
+     */
+    function sleep(delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+    }
+
+    function DnsStart() {
+        $.ajax({
+            type: 'POST',
+            url: 'detectionDns',
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                sleep(1000);
+                location.reload();
+            }
+        });
+    }
+    function DnsStop() {
+         $.ajax({
+            type: 'POST',
+            url: 'stopDns',
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                sleep(1000);
+                location.reload();
+            }
+        });
+    }
+    function DnsRestart() {
+        $.ajax({
+            type: 'POST',
+            url: 'restartDns',
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                sleep(1000);
+                location.reload();
+            }
+        });
+    }
+    function DgaStart() {
+        $.ajax({
+            type: 'POST',
+            url: 'detectionDga',
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                sleep(1000);
+                location.reload();
+            }
+        });
+    }
+    function DgaStop() {
+         $.ajax({
+            type: 'POST',
+            url: 'stopDga',
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                sleep(1000);
+                location.reload();
+            }
+        });
+    }
+    function DgaRestart() {
+        $.ajax({
+            type: 'POST',
+            url: 'restartDga',
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                sleep(1000);
+                location.reload();
+            }
+        });
+    }
+    function StartAll(){
+        document.getElementById("DnsStart").click();
+        document.getElementById("DgaStart").click();
+        
+    }
+    function StopAll(){
+         document.getElementById("DnsStop").click();
+        document.getElementById("DgsStop").click();
+    }
+    function RestartAll(){
+         document.getElementById("DnsRestart").click();
+        document.getElementById("DgaRestart").click();
+    }
+</script>

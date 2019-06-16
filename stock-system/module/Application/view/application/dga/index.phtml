@@ -1,0 +1,146 @@
+
+<div class="row">
+   <!--  <div class="col-md-4  toolbar-box">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="font-size: 14px">Tool box</h3>
+            </div>
+            <div class="panel-body">
+                <button class="btn btn-danger open-view-user-modal tool-button" onclick="updateMultiStatus(1)">
+                    <span class="btn-toolbutton">D</span>
+                </button> 
+                <button  class="btn btn-success open-edit-user-modal tool-button"  onclick="updateMultiStatus(0)">
+                    <span class="btn-toolbutton">E</span>
+                </button>
+                <button class="btn btn-danger open-delete-user-modal tool-button" onclick="multiDetele()">
+                    <span class="glyphicon glyphicon-trash">
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div> -->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body ">
+                <h4 class="card-title">List DGA Domain</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="CheckAll" onclick="checkAll()" class="testAble" /></th>
+                                <th>ID</th>
+                                <th>Domain</th>
+                                <th>Ip Address</th>
+                                <th>Query Time</th>
+                                <th>Response</th>
+                                <th>DGA Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($dgas as $dga): ?>
+                                <tr>
+                                    <td><input type="checkbox" name="Check[]" value="<?= $dga->getId() ?>" class="testAble" /></td>
+                                    <th scope="row"><?php echo $this->escapeHtml($dga->getId()); ?></th>
+                                    <td><?php echo $this->escapeHtml($dga->getDomain()); ?></td>
+                                    <td><?php echo $this->escapeHtml($dga->getClientIp()); ?></td>
+                                    <td><?php echo $this->escapeHtml($dga->getRequestedTime()); ?></td>
+                                    <td><?php echo $this->escapeHtml($dga->getResponsedns()); ?></td>
+                                    <td><?php echo $this->escapeHtml($dga->getMalwarename()); ?></td>
+                                    <?php
+                                    ?>
+
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="Pagination">
+                <?= $this->paginationControl($dgas, 'Sliding', 'application/partial/paginator', array('router' => 'dga')) ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    function updateStatus(id, status) {
+        $.ajax({
+            type: 'POST',
+            url: 'dga/updateStatus',
+            data: {id: id, status: status},
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                location.reload();
+            }
+        });
+    }
+    function updateMultiStatus(status) {
+        var checkArr = document.getElementsByName("Check[]");
+        var ArrLength = checkArr.length;
+
+        for (k = 0; k < ArrLength; k++)
+        {
+            if (checkArr[k].checked == true) {
+                console.log(checkArr[k].value);
+                $.ajax({
+                    type: 'POST',
+                    url: 'dga/updateStatus',
+                    data: {id: checkArr[k].value, status: status},
+                    //dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        }
+        location.reload();
+    }
+    function DeleteData(id) {
+        $.ajax({
+            type: 'POST',
+            url: 'dga/deleteDga?id=' + id,
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                location.reload();
+            }
+        });
+    }
+    function multiDetele() {
+        var checkArr = document.getElementsByName("Check[]");
+        var ArrLength = checkArr.length;
+
+        for (k = 0; k < ArrLength; k++)
+        {
+            if (checkArr[k].checked == true) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'dga/deleteDga?id=' + checkArr[k].value,
+                    //dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        location.reload();
+                    }
+                });
+            }
+
+        }
+        //location.reload();
+    }
+    function checkAll() {
+        var checkArr = document.getElementsByName("Check[]");
+        var checkAll = document.getElementsByName("CheckAll")[0];
+        var ArrLength = checkArr.length;
+
+        for (k = 0; k < ArrLength; k++)
+        {
+            if (checkAll.checked == true)
+                checkArr[k].checked = true;
+            else
+                checkArr[k].checked = false;
+        }
+    }
+</script>

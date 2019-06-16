@@ -1,0 +1,41 @@
+
+<h1>This is Api model</h1>
+<button id="ApiButton" onclick="getToken()">Test Api</button>
+<br>
+<?php
+if(isset($_COOKIE['token'])){
+	print_r($_COOKIE['token']);
+}else{
+	echo("<p>did not have token</p>");
+}
+?>
+<script type="text/javascript">
+	window.onload = function(){
+	 				document.getElementById("ApiButton").click();
+	 }
+	 function getToken() {
+	 	
+	 	var email ='ttdung997@gmail.com'
+	 	var pass = '123456'
+	 	<?php
+	 		if(isset($_POST['email'])){
+
+	 			?>
+	 			 email = <?php echo $_POST['email'] ?>;
+	 			 pass = <?php echo $_POST['password'] ?>;
+	 			 
+	 			<?php
+	 		}
+	 	?>
+
+        $.ajax({
+            type: 'POST',
+            url: '/getToken',
+            data: {email: email, pass: pass},
+            //dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+</script>

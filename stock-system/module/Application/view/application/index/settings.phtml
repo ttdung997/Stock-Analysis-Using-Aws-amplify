@@ -1,0 +1,65 @@
+<?php
+$this->headTitle('Edit User');
+
+// $this->mainMenu()->setActiveItemId('users');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home'),
+            'Manage Users'=>$this->url('users'),
+            'Edit User'=>$this->url('users', ['action'=>'edit'])
+            ]);
+
+$form->get('email')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'name@example.com'
+    ]);
+
+$form->get('full_name')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'John Doe'
+    ]);
+$form->get('submit')
+        ->setAttributes(['class'=>'btn btn-primary'])
+        ->setValue('Save');
+
+$form->prepare();
+?>
+
+<h1>Chỉnh sủa thông tin cá nhân</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('email')); ?>
+            <?= $this->formElement($form->get('email')); ?>
+            <?= $this->formElementErrors($form->get('email')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('full_name')); ?>
+            <?= $this->formElement($form->get('full_name')); ?>
+            <?= $this->formElementErrors($form->get('full_name')); ?>                  
+        </div>
+         <div class="form-group">
+
+            <?= $this->formLabel($form->get('file')); ?>
+            <br>
+            <img style="width: 300px;height: 300px" src="<?=$user->getAvatar()?>" onError="this.onerror=null;this.src='/img/1.jpg';">
+            <br>
+            <br>
+            <label>New avatar</label><br>
+            <?= $this->formElement($form->get('file')); ?>
+            <?= $this->formElementErrors($form->get('file')); ?>
+            <div class="hint">(PNG and JPG formats are allowed)</div>
+        </div>
+
+        
+        <?= $this->formElement($form->get('submit')); ?>
+        <a href="/application/change-password" type="button" class="btn btn-primary">Đổi mật khẩu</a>
+        
+        <?= $this->form()->closeTag(); ?>
+    </div>    
+</div>   
+

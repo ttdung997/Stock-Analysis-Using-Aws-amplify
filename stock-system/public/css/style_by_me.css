@@ -1,0 +1,48 @@
+/*----------Header----------------*/
+.topbar .top-navbar .navbar-header .navbar-brand .light-logo{
+    height: 40px;
+}
+/*----------Footer----------------*/
+.toolbar-button{
+    float:left; color:#666666; text-align:center; margin-right: 5px;
+}
+.toolbar-box{
+    position: fixed;
+    width: 9%;
+    right: -1%;
+    margin-top: 16%;
+    z-index: 1;
+}
+.tool-button{
+    margin-bottom: 10%;
+}
+.status-button{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline!important;
+    border-bottom: 1px dotted!important;
+    text-decoration: none;
+}
+.green{
+    color: #429e47!important;
+}
+.red{
+    color: #e33734!important;
+}
+.btn-toolbutton{
+    font-size: 16px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.col-md-offset-4 {
+        margin-left: 33.33333333%;
+    }
+.tabbutton{
+    margin-left: 5px!important; 
+}
+.nav-tabs {
+    border: none!important;
+}

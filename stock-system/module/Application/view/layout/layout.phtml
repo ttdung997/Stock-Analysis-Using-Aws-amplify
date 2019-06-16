@@ -1,0 +1,154 @@
+
+<?= $this->doctype() ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle('Stock analysis system')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/style_by_me.css'))
+            ->prependStylesheet($this->basePath('css/color/blue.css'))
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('assets/plugins/boostrap/css/bootstrap.min.css'))
+            ->prependStylesheet($this->basePath('css/mycss.css'))
+        ?>
+
+    </head>
+    <body class="fix-header card-no-border logo-center">
+        <div id="main-wrapper">
+            <!-- ============================================================== -->
+            <!-- Header -->
+            <!-- ============================================================== -->
+            <header class="topbar">
+                <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-header" >
+                        <a class="navbar-brand" href="<?= $this->url('home') ?>">
+                            <!-- Logo icon -->
+                            <b><img src="<?php echo $this->basePath() . '/img/bkcs-logo.png'?>" class="light-logo"></b>
+                             <!-- Logo text -->
+                            <span class="light-logo">Stock Analysis System
+                            </span>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-collapse">
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav mr-auto mt-md-0">
+                            <!-- This is  -->
+                            <li class="nav-item"> <a class=" nav-toggle nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">></a></li>
+                       
+                        </ul>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav my-lg-0">
+                            <!-- ============================================================== -->
+                            <!-- Search -->
+                            <!-- ============================================================== -->
+                            <!-- <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a> -->
+                            <!-- <form class="app-search">
+                                <form>
+                            </li> -->
+                            <!-- ============================================================== -->
+                            <!-- Profile -->
+                            <!-- ============================================================== -->
+                             <?php
+                                if(isset($this-> role)){
+                            ?>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?=$this->avatar?>" alt="user" class="profile-pic" onError="this.onerror=null;this.src='/img/1.jpg';"></a>
+                            <div class="dropdown-menu dropdown-menu-right scale-up">
+                                <ul class="dropdown-user">
+                                    <li>
+                                        <div class="dw-user-box">
+                                            <div class="u-img"><img src="<?=$this->avatar?>" alt="user" onError="this.onerror=null;this.src='/img/1.jpg';"></div>
+                                            <div class="u-text">
+                                                <h4><?=$this->username?></h4>
+                                                <p class="text-muted"><?=$this->email?></p><a href="/application/profile" class="btn btn-rounded btn-danger btn-sm">Infomation</a></div>
+                                        </div>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/application/settings"><i class="ti-settings"></i> Setting</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="<?= $this->url('logout') ?>"><i class="fa fa-power-off"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <?php
+                            }
+                        ?>
+                        </ul>
+                    </div>  
+                </nav>
+            </header>
+            <!-- ============================================================== -->
+            <!-- End Header -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav active">
+                        <ul id="sidebarnav" class="in">
+                            <li class="active"> <a class="has-arrow waves-effect waves-dark" href="<?= $this->url('home') ?>" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Stock Analysis</span></a>
+                            </li>
+                            <li> <a class="has-arrow waves-effect waves-dark" href="<?= $this->url('news') ?>" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">News</span></a>
+                            </li>
+                            <?php
+                                if($this-> role == 2){
+                            ?>
+                            <li> <a class="has-arrow waves-effect waves-dark" href="<?= $this->url('users') ?>" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Quản lý người dùng</span></a>
+                            </li>
+                            <?php
+                                }
+                            ?>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <?= $this->content ?>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Footer -->
+            <!-- ============================================================== -->
+            <footer class="footer">
+                <h4>&copy; <?= date('Y') ?> by BKCS Centre. All rights reserved.</h4>
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End Footer -->
+            <!-- ============================================================== -->
+        </div>
+        <?= $this->inlineScript() ?>
+         <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/custom.min.js'))
+            ->prependFile($this->basePath('js/sticky-kit.min.js'))
+            ->prependFile($this->basePath('js/sidebarmenu.js'))
+            ->prependFile($this->basePath('js/skycons.js'))
+            ->prependFile($this->basePath('js/waves.js'))
+            ->prependFile($this->basePath('js/jquery.slimscroll.js')) 
+            ->prependFile($this->basePath('assets/plugins/boostrap/js/bootstrap.min.js'))
+            ->prependFile($this->basePath('assets/plugins/boostrap/js/popper.min.js'))
+            ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+        ?>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<?php
+$this->headTitle('Users');
+
+// $this->mainMenu()->setActiveItemId('users');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home'),
+            'Manage Users'=>$this->url('users'),
+            ]);
+?>
+
+<h1>Quản lý ngưòi dùng</h1>
+
+<p>
+<a class="btn btn-default" href="
+    <?= $this->url('users', ['action'=>'add']); ?>">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm tài khoản
+</a>
+</p>
+
+<table class="table table-striped">
+
+   <tr>
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>Họ tên</th>
+        <th>Ngày tạo</th>
+        <th>Vị trí</th> 
+        <th>Trạng thái</th>        
+        <th>Hành động</th>        
+    </tr>
+    
+    <?php foreach ($users as $user): ?>
+    
+    <tr>
+        <td><?= $this->escapeHtml($user->getId()); ?></td>
+        <td>
+            <a href="<?= $this->url('users', ['action'=>'view', 'id'=>$user->getId()]); ?>">
+                <?= $this->escapeHtml($user->getEmail()); ?>
+            </a> 
+        </td>
+        <td><?= $this->escapeHtml($user->getFullName()); ?></a> 
+        </td>
+        <td><?= $this->escapeHtml($user->getDateCreated()); ?></td>
+        <td><?= $this->escapeHtml($user->getRoleAsString()); ?></td>        
+        <td><?= $this->escapeHtml($user->getStatusAsString()); ?></td>
+        <td>
+            <a class="btn btn-info" href="<?= $this->url('users', 
+                    ['action'=>'edit', 'id'=>$user->getId()]); ?>">
+                <span class="glyphicon glyphicon-pencil" ></span> Edit
+            </a>
+            
+        </td>    
+    </tr>
+        
+    <?php endforeach; ?>   
+    
+</table>
+
